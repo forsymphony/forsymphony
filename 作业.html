@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ECharts</title>
+    <!-- 引入 echarts.js -->
+</head>
+<body>
+    <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+    <div id="main" style="width: 800px;height:600px;"></div>
+	<script  src="echarts.js"></script>
+	<script  src="shine.js"></script>
+	<script  src="vintage.js"></script>
+</body>
+    <script type="text/javascript">
+        // 基于准备好的dom，初始化echarts实例
+        var myChart = echarts.init(document.getElementById('main'),'vintage');
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: 'XX地区水量变化',
+				left:15
+            },
+			toolbox: {
+        // 工具箱
+        feature: {
+            dataView: {},
+            saveAsImage: {},
+			restore:{},//还原
+			magicType:  {
+        type: ['line', 'bar']
+						}
+				}
+					},
+            tooltip: {},//鼠标滑过显示数据
+            legend: {
+                data:['蒸发量', '降水量','平均温度']
+            },//显示小方块
+            xAxis: {
+			 type:'category',
+               data: ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"]
+            },
+            yAxis: [
+			{
+			type:'value',
+			name:'水量(ml)',
+			min:0,
+			max:250,
+			interval:50
+			},
+			{
+			type:'value',
+			name:'温度(°C)',
+			min:0,
+			max:40,
+			interval:8
+			}],
+			dataZoom:[{
+			type:'slider',
+			start:0,
+			end:50
+			}],
+			
+            series: [{
+                name: '蒸发量',
+                type: 'bar',//条状图
+                data: [2.1,4.6,23.2,68.6,56.5,140.5,39.8,88.8,33.3,55.5,111.1,6.3],
+				markPoint:{
+				data:[
+				{type:'max',name:'最大值'},
+				{type:'min',name:'最小值'}
+				]
+				 <!-- animation = true -->//动画
+				},
+				markLine:{
+				data:[
+				{type:'average',name:'平均值'}
+				]
+				}
+				},
+			{
+				name:'降水量',
+				type:'bar',//折线图 
+				data:[3.0,5.0,24.0,70.1,65.2,150.3,45.4,95.5,36.6,67.7,118.8,8.9],
+				markPoint:{
+				data:[
+				{type:'max',name:'最大值'},
+				{type:'min',name:'最小值'}
+				]},
+				markLine:{
+				data:[
+				{type:'average',name:'平均值'}
+				]
+				}
+				},
+				{
+				name:'平均温度',
+				type:'line',
+				yAxisIndex:1,
+				data:[2.8,6.0,9.1,15.1,20.3,30.8,37.3,38.0,30.6,20.5,10.6,6.9],
+				markPoint:{
+				data:[
+				{type:'max',name:'最大值'},
+				{type:'min',name:'最小值'}
+				]}
+				}
+			]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+		<!-- myChart1.setOption(option1); -->
+    </script>
+</html>
