@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../lib/jquery-1.6.4.min.js"></script>
+</head>
+<style>
+    a{
+        text-decoration: none;
+    }
+    .cover{
+        text-align:center;
+    }
+    table{
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top:0;
+        margin: auto;
+        border-collapse:collapse;
+        border-spacing:0;
+        border:1px solid #888;
+        width: 1899px;
+        height: 150px;
+        font-size: 20px;
+    }
+    td{
+        border:1px solid #888;
+        padding:5px 15px;
+        width:234px;
+        height: 65px;
+
+    }
+    th{
+        font-weight:bold;
+        background:#ccc;
+        border:1px solid #888;
+        width:234px;
+        height: 65px;
+    }
+    .btn{
+        border-radius: 15px;
+        background-color: #0D8BBD;
+        color: white;
+        font-size: 20px;
+        padding: 15px;
+    }
+    .btn-primary{
+        text-align: center;
+    }
+    h1{
+        text-align: center;
+    }
+    th,td{
+        text-align: center;
+    }
+    .checkbox{
+        width: 20px;
+        height: 20px;
+    }
+    .a_but{
+        text-align: center;
+        border-radius: 10px;
+        background-color: #0D8BBD;
+        color:white;
+        font-size:12px;
+        padding: 10px;
+        margin: 10px;
+    }
+    .loading {
+        top: 0;
+        left: 0;
+        width:100%;
+        height:100%;
+        z-index:-10;
+        zoom: 1;
+        background-size: cover;
+        background: #fff url("../img/23.jpg") no-repeat center 0;
+        color: white;
+        opacity: 1;
+        animation:a11 1s;
+        animation-iteration-count:1;
+    }
+    /*@keyframes a11 {*/
+    /*    0%{opacity: 1;}*/
+    /*    100%{opacity:0;}*/
+    /*}*/
+    .cover{
+        opacity: 1;
+        animation: b11 1s;
+    }
+    @keyframes b11 {
+        0%{opacity:0}
+        75%{opacity: 0}
+        100%{opacity: 1}
+    }
+
+    .zhuxiao{
+        float: right;
+        color: red;
+    }
+</style>
+<body>
+<div>
+    <div class="loading">
+        <img src="../img/23.jpg" class="img-responsive"/>
+    </div>
+    <div class="cover">
+        <table class="table table-bordered table-hover">
+            <caption><h1 id="h1"></h1>
+                <a href="login.html" class="zhuxiao">注销登录</a></caption>
+            <tr class="bg-success">
+                <th>员工编号</th>
+                <th>工资编号</th>
+                <th>考勤编号</th>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>电话</th>
+                <th>邮箱</th>
+                <th>地址</th>
+                <th>部门</th>
+                <th>工资查询</th>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+<script>
+
+//setInterval(none,2000);
+    //    $(document).ajaxStart(function() {
+    //        $("#loading").show(); //在ajax请求开始的时候启用loading
+    //    }).ajaxStop(function() {
+    //        $('#loading').hide(); //在ajax请求结束后隐藏loading
+    //    });
+
+    var nomalid=window.location.href.split("=")[1];
+    $.get(
+        "/_war_exploded/findnomalid",
+        "nomalid="+nomalid,
+        function (data) {
+            $(data).each(function (index,element) {
+                $("#h1").html("欢迎你,"+element.ename);
+                var $tr=$("<tr>\n"+
+                    "            <td>"+element.empno+"</td>\n" +
+                    "            <td>"+element.wageno+"</td>\n" +
+                    "            <td>"+element.attenno+"</td>\n" +
+                    "            <td>"+element.ename+"</td>\n" +
+                    "            <td>"+element.gender+"</td>\n" +
+                    "            <td>"+element.tel+"</td>\n" +
+                    "            <td>"+element.email+"</td>\n" +
+                    "            <td>"+element.address+"</td>\n" +
+                    "            <td>"+element.deptname+"</td>\n" +
+                    "            <td><a href='wageOneShow.html?wageno="+element.wageno+"&attenno="+element.attenno+"&ename="+element.ename+"&nomalid="+nomalid+"' class='a_but'>工资明细</a></td>\n" +
+                    "</tr>");
+                $("table").append($tr);
+            })
+
+        },
+        "json"
+    );
+
+    // function delemp(aele,eid) {
+    //     $.get(
+    //         "/idea_java2_war_exploded/delemp",
+    //         "eid="+eid,
+    //         function (data) {
+    //             if(data==1)
+    //                 $(aele).parent().parent().remove();
+    //             else
+    //                 alert("删除失败");
+    //         },
+    //         "text"
+    //     )
+    // }
+
+</script>
+</html>
+<!--$api.append(abcd, "<tr><td οnclick='delete_m(\"" + ret[i].id + "\")' class='tde'>删除</td></tr>");-->

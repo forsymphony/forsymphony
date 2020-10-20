@@ -1,0 +1,156 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>工资详情</title>
+</head>
+<script src="../lib/jquery-1.6.4.min.js"></script>
+<style>
+    a{
+        text-decoration: none;
+    }
+    .cover{
+        text-align:center;
+    }
+    table{
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top:0;
+        margin: auto;
+        border-collapse:collapse;
+        border-spacing:0;
+        border:1px solid #888;
+        width: 1899px;
+        height: 150px;
+        font-size: 20px;
+    }
+    td{
+        border:1px solid #888;
+        padding:5px 15px;
+        width:234px;
+        height: 65px;
+
+    }
+    th{
+        font-weight:bold;
+        background:#ccc;
+        border:1px solid #888;
+        width:234px;
+        height: 65px;
+    }
+    .btn{
+        border-radius: 15px;
+        background-color: #0D8BBD;
+        color: white;
+        font-size: 20px;
+        padding: 15px;
+    }
+    .btn-primary{
+        text-align: center;
+    }
+    h1{
+        text-align: center;
+    }
+    th,td{
+        text-align: center;
+    }
+    .checkbox{
+        width: 20px;
+        height: 20px;
+    }
+    .a_but{
+        text-align: center;
+        border-radius: 10px;
+        background-color: #0D8BBD;
+        color:white;
+        font-size:12px;
+        padding: 10px;
+        margin: 10px;
+    }
+    .loading {
+        top: 0;
+        left: 0;
+        width:100%;
+        height:100%;
+        z-index:-10;
+        zoom: 1;
+        background-size: cover;
+        background: #fff url("../img/23.jpg") no-repeat center 0;
+        color: white;
+        opacity: 1;
+        animation:a11 1s;
+        animation-iteration-count:1;
+    }
+    /*@keyframes a11 {*/
+    /*    0%{opacity: 1;}*/
+    /*    100%{opacity:0;}*/
+    /*}*/
+    .cover{
+        opacity: 1;
+        animation: b11 1s;
+    }
+    @keyframes b11 {
+        0%{opacity:0}
+        75%{opacity: 0}
+        100%{opacity: 1}
+    }
+
+    .zhuxiao{
+        float: right;
+        color: red;
+    }
+</style>
+<body>
+<div>
+    <div class="loading">
+        <img src="../img/23.jpg" class="img-responsive"/>
+    </div>
+    <div class="cover">
+        <table class="table table-bordered table-hover">
+            <caption><h1 id="h1"></h1>
+                <a href="allEmp.html" class="zhuxiao">返回</a></caption>
+            <tr class="bg-success">
+                <th>工资编号</th>
+                <th>考勤编号</th>
+                <th>基础工资</th>
+                <th>考勤天数</th>
+                <th>请假天数</th>
+                <th>迟到天数</th>
+                <th>实际工资</th>
+                <th>操作</th>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+<script>
+    var ename= decodeURI(window.location.href.split("=")[3]);
+    var attenno=window.location.href.split("=")[2].split("&")[0];
+    var wageno=window.location.href.split("=")[1].split("&")[0];
+$(function () {
+    $.get(
+        "/_war_exploded/findAllWage",
+        "attenno="+attenno+"&wageno="+wageno,
+        function (data) {
+            $(data).each(function (index,element){
+                $("#h1").html("这是"+ename+"的工资表，请谨慎修改！");
+                var $tr=$("<tr>\n"+
+                    "            <td>"+element.wageno+"</td>\n" +
+                    "            <td>"+element.attenno+"</td>\n" +
+                    "            <td>"+element.base_WAGE+"</td>\n" +
+                    "            <td>"+element.day+"</td>\n" +
+                    "            <td>"+element.vacate+"</td>\n" +
+                    "            <td>"+element.late+"</td>\n" +
+                    "            <td>"+element.real_WAGE+"</td>\n" +
+                    "            <td><a href='updateWage.html?wageno="+wageno+"&attenno="+attenno+"&ename="+ename+"' class='a_but'>修改工资</a></td>\n" +
+                    "</tr>");
+                $("table").append($tr);
+            })
+        },
+        "json"
+    )
+})
+</script>
+</html>

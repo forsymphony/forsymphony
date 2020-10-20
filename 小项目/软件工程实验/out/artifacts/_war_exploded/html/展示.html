@@ -1,0 +1,40 @@
+<html lang="en">
+<head>0
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../lib/jquery-1.6.4.min.js"></script>
+    <style>
+        .div1{
+            padding:20px 50px;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top:0;
+            margin: auto;
+            width: 250px;
+            height: 300px;
+        }
+        .h1{
+           color:skyblue;
+        }
+        body{
+            background: url("../img/login.jpg");
+        }
+    </style>
+</head>
+<body>
+<div class="div1">
+    <h1 class="h1">欢迎来到能力有限公司管理系统</h1>
+</div>
+</body>
+<script>
+    $(function () {
+        function a() {
+            location.href = "login.html";
+        }
+        window.onclick=a;
+        setTimeout(a,3000);
+    });
+</script>
+</html>

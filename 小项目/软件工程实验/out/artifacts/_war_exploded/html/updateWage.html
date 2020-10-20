@@ -1,0 +1,167 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="../lib/jquery-1.6.4.min.js"></script>
+<style type="text/css">
+    .bigBox{
+        padding:20px 50px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top:0;
+        margin: auto;
+        background-color: #00000090;
+        width: 500px;
+        height: 530px;
+        border-radius: 10px;
+        color: #fff192;
+    }
+    .backimg{
+        position:fixed;
+        top: 0;
+        left: 0;
+        width:100%;
+        height:100%;
+        min-width: 1000px;
+        z-index:-10;
+        zoom: 1;
+        background-size: cover;
+        background: #fff url("../img/login.jpg") no-repeat center 0;
+    }
+    h1{
+        text-align: center;
+    }
+    .inputText{
+        text-align: right;
+        height: 50px;
+    }
+    input {
+        width: 400px;
+        height: 40px;
+        margin-top: 10px;
+    }
+    select{
+        width: 408px;
+        height: 40px;
+        margin-top: 13px;
+    }
+    .button1{
+        text-align: center;
+        margin-top:50px;
+    }
+    .button2{
+        font-size: 22px;
+        margin: 0 50px;
+        width: 100px;
+        border-radius: 15px;
+        height: 40px;
+        background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+        color: black;
+    }
+    a{
+        text-decoration: none;
+    }
+</style>
+<body>
+<div class="backimg"></div>
+<form action="updataWage" method="post" onsubmit="sumbitsure()" id="form">
+    <div class="bigBox">
+        <h1>修改工资信息</h1>
+        <div class="inputText" style="display:none">
+            <label for="ENAME">员工姓名：</label>
+            <input type="text" id="ENAME"  name="ENAME" readonly="readonly">
+        </div>
+        <div class="inputText">
+            <label for="WAGENO">工资编号：</label>
+            <input type="text" id="WAGENO"  name="WAGENO" readonly="readonly">
+        </div>
+        <div class="inputText">
+            <label for="ATTENNO">考勤编号：</label>
+            <input type="text" id="ATTENNO"  name="ATTENNO" readonly="readonly">
+        </div>
+        <div class="inputText">
+            <label for="base_WAGE">基础工资：</label>
+            <input type="number" id="base_WAGE"  name="base_WAGE" v-model.number="base">
+        </div>
+        <div class="inputText">
+            <label for="DAY">考勤天数：</label>
+            <input type="number" id="DAY"  name="DAY" v-model.number="day">
+        </div>
+        <div class="inputText">
+            <label for="VACATE">请假天数：</label>
+            <input type="number" id="VACATE"  name="VACATE" v-model.number="vacate">
+        </div>
+        <div class="inputText">
+            <label for="LATE">迟到天数：</label>
+            <input type="number" id="LATE"  name="LATE" v-model.number="late">
+        </div>
+        <div class="inputText">
+            <label for="real_WAGE">实际工资：</label>
+            <input type="text" id="real_WAGE"  name="real_WAGE" readonly="readonly" v-model.number="real">
+        </div>
+        <div class="button1">
+            <button class="button2" type="submit" id="submit">提交</button>
+            <button class="button2 button3" id="return"><a href="allEmp.html">返回</a></button>
+        </div>
+    </div>
+</form>
+</body>
+<script>
+    var ename= decodeURI(window.location.href.split("=")[3]);
+    var attenno=window.location.href.split("=")[2].split("&")[0];
+    var wageno=window.location.href.split("=")[1].split("&")[0];
+    $(function () {
+        $.get(
+            "/_war_exploded/findAllWage",
+            "attenno="+attenno+"&wageno="+wageno,
+            function (data) {
+                $(data).each(function (index, element) {
+                    $("#ENAME").val(ename);
+                    $("#WAGENO").val(element.wageno);
+                    $("#ATTENNO").val(element.attenno);
+                    $("#base_WAGE").val(element.base_WAGE);
+                    $("#DAY").val(element.day);
+                    $("#LATE").val(element.late);
+                    $("#VACATE").val(element.vacate);
+                    $("#real_WAGE").val(element.real_WAGE);
+
+                })
+            },
+            'json'
+
+    )
+    });
+</script>
+<script language="JavaScript">
+    function sumbitsure(){
+        var gnl=confirm("确定要提交?");
+        if (gnl==true){
+            alert("修改成功!");
+            return true;
+        }else{
+            return false;
+        }
+    }
+</script>
+<script src="../js/vue.js"></script>
+<script>
+    const form=new Vue({
+        el:"#form",
+        data:{
+            base:2000,
+            day:10,
+            late:1,
+            vacate:1
+        },
+        computed:{
+            real:function () {
+                return this.base+this.day*100-this.vacate*100-this.late*20;
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<script src="../lib/jquery-1.6.4.min.js"></script>
+<style type="text/css">
+    .bigBox{
+        padding:20px 50px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top:0;
+        margin: auto;
+        background-color: #00000090;
+        width: 500px;
+        height: 630px;
+        border-radius: 10px;
+        color: #fff192;
+    }
+    .backimg{
+        position:fixed;
+        top: 0;
+        left: 0;
+        width:100%;
+        height:100%;
+        min-width: 1000px;
+        z-index:-10;
+        zoom: 1;
+        background-size: cover;
+        background: #fff url("../img/login.jpg") no-repeat center 0;
+    }
+    h1{
+        text-align: center;
+    }
+    .inputText{
+        text-align: right;
+        height: 50px;
+    }
+    input {
+        width: 400px;
+        height: 40px;
+        margin-top: 10px;
+    }
+    select{
+        width: 408px;
+        height: 40px;
+        margin-top: 13px;
+    }
+    .button1{
+        text-align: center;
+        margin-top:50px;
+    }
+    .button2{
+        font-size: 22px;
+        margin: 0 50px;
+        width: 100px;
+        border-radius: 15px;
+        height: 40px;
+        background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);
+        color: black;
+    }
+    a{
+        text-decoration: none;
+    }
+</style>
+<body>
+<div class="backimg"></div>
+<form action="UpdataEmp" method="post" onsubmit="sumbitsure()">
+    <div class="bigBox">
+        <h1>修改员工信息</h1>
+        <div class="inputText">
+            <label for="EMPNO">员工编号：</label>
+            <input type="text" id="EMPNO"  name="EMPNO" readonly="readonly">
+        </div>
+        <div class="inputText">
+            <label for="DEPTNO">部门名称：</label>
+            <select name="DEPTNO" id="DEPTNO"  class="form-control" >
+                <option value="20001">人力资源部</option>
+                <option value="20002">财务部</option>
+                <option value="20003">生产技术部</option>
+                <option value="20004">计划营销部</option>
+                <option value="20005">后勤部</option>
+                <option value="20006">保卫部</option>
+                <option value="20007">总裁部</option>
+            </select>
+        </div>
+        <div class="inputText">
+            <label for="WAGENO">工资编号：</label>
+            <input type="text" id="WAGENO"  name="WAGENO" readonly="readonly">
+        </div>
+        <div class="inputText">
+            <label for="ATTENNO">考勤编号：</label>
+            <input type="text" id="ATTENNO"  name="WAGENO" readonly="readonly">
+        </div>
+        <div class="inputText">
+            <label for="ENAME">员工姓名：</label>
+            <input type="text" id="ENAME"  name="ENAME">
+        </div>
+        <div class="inputText">
+            <label for="GENDER">员工性别：</label>
+            <input type="text" id="GENDER"  name="GENDER">
+        </div>
+        <div class="inputText">
+            <label for="TEL">电话号码：</label>
+            <input type="TEL" id="TEL"  name="TEL">
+        </div>
+        <div class="inputText">
+            <label for="EMAIL">邮箱地址：</label>
+            <input type="text" id="EMAIL"  name="EMAIL">
+        </div>
+        <div class="inputText">
+            <label for="ADDRESS">家庭住址：</label>
+            <input type="text" id="ADDRESS"  name="ADDRESS">
+        </div>
+        <div class="button1">
+            <button class="button2" type="submit" id="submit">提交</button>
+            <button class="button2 button3" id="return"><a href="allEmp.html">返回</a></button>
+        </div>
+    </div>
+</form>
+</body>
+<script>
+    var empno=window.location.href.split("=")[1];
+    $(function () {
+        $.get(
+            "/_war_exploded/ShowUpdateEmp",
+            "empno="+empno,
+            function (data) {
+                $(data).each(function (index,element) {
+                        $("#EMPNO").val(element.empno);
+                        $("#WAGENO").val(element.wageno);
+                        $("#ATTENNO").val(element.attenno);
+                        $("#ENAME").val(element.ename);
+                        $("#GENDER").val(element.gender);
+                        $("#TEL").val(element.tel);
+                        $("#EMAIL").val(element.email);
+                        $("#ADDRESS").val(element.address);
+                        var select=document.getElementById("DEPTNO");
+                        var options=select.options;//获取单选框的选项
+                        for(var i=0;i<options.length;i++){//遍历单选框选项
+                            if(options[i].value==element.deptno)
+                                options[i].setAttribute("selected",true);//找到匹配的选项，设置成已选择
+                    }
+
+                })
+
+            },
+            "json"
+        );
+
+
+    })
+</script>
+<script language="javascript">
+    $("#submit").click(function () {
+
+        var gnl=confirm("确定要提交?");
+        if (gnl==true){
+            alert("修改成功!");
+            return true;
+        }else{
+            return false;
+        }
+    })
+
+</script>
+</html>

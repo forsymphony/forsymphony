@@ -1,0 +1,146 @@
+body{
+    background-size: 100%;
+    overflow: hidden;
+}
+#bigBox{
+    height:600px;
+}
+.text1{
+    color:white;
+}
+.button1{
+    margin-top:45px;
+    text-align: center;
+}
+.inputBox{
+    position: relative;
+}
+.img1{
+    margin-top: 5px;
+    margin-left: 50px;
+    position: absolute;
+    top:-20px;
+}
+.button2{
+    font-size: 13px;
+    font-weight: bold;
+    position: absolute;
+    top:410px;
+    right: 80px;
+    width:100px;
+    height: 25px;
+    margin-top:5px;
+    box-sizing:content-box;
+    /*border-radius: 20px;*/
+    background-image: linear-gradient(to top, #feada6 0%, #f5efef 100%);
+}
+.button3{
+    left: 60px;
+    margin-left: 15px;
+    background-image: linear-gradient(to top, #feada6 0%, #f5efef 100%);
+}
+body{
+    text-decoration:none;
+    margin:0;
+    padding:0;
+}
+.backimg{
+    position:fixed;
+    top: 0;
+    left: 0;
+    width:100%;
+    height:100%;
+    min-width: 1000px;
+    z-index:-10;
+    zoom: 1;
+    background-size: cover;
+    background: #fff url("../img/login.jpg") no-repeat center 0;
+}
+div{
+    box-sizing: border-box;
+}
+#bigBox{
+    padding:20px 50px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top:0;
+    margin: auto;
+    background-color: #00000090;
+    width: 600px;
+    border-radius: 10px;
+}
+#bigBox h1{
+    color:white;
+}
+#bigBox .inputBox{
+    margin-top:40px;
+}
+#bigBox .inputBox .inputText{
+    margin-top:45px;
+
+}
+#bigBox .inputBox .inputText input{
+    /*border:0;*/
+    box-sizing: content-box;
+    padding:10px 10px;
+    border-bottom:1px solid white;
+    background-color:#00000000;
+    color:white;
+
+}
+.wenben{
+    width: 230px;
+}
+#bigBox .inputBox .inputButton{
+    /*font-size: 15px;*/
+    width:100px;
+    height: 20px;
+    margin-top:5px;
+    box-sizing:content-box;
+    /*border-radius: 20px;*/
+    text-align: center;
+    background-image: linear-gradient(to right, #b8cbb8 0%, #b8cbb8 0%, #b465da 0%, #cf6cc9 33%, #ee609c 66%, #ee609c 100%);
+}
+
+#bigBox .inputBox .inputText span{
+    font-size: 20px;
+    color:skyblue;
+}
+i{
+    color:white;
+}
+.choosey{
+    color:white;
+    float: left;
+    margin:20px 30px 15px 35px;
+}
+.yonghu{
+    margin-right: 10px;
+}
+.xuan{
+    margin-top: 8px;
+}
+.zhuce{
+    position: relative;
+    top:15px;
+    font-size: 10px;
+    color: white;
+}
+a{
+    color: white;
+    text-decoration:none;
+}
+input{
+    width: 70%;
+}
+form{
+    position: relative;
+}
+.yanzheng{
+    position: relative;
+}
+.yanzheng input{
+    width: 200px;
+}

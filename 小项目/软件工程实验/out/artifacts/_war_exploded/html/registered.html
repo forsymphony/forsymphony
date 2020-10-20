@@ -1,0 +1,131 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="../css/用户注册.css">
+    <link rel="stylesheet" href="http://at.alicdn.com/t/font_2113340_nvy6pe2qqv.css">
+    <title>用户注册界面</title>
+</head>
+<body>
+<div class="backimg"></div>
+<div id="bigBox">
+    <div><h1>REGISTER</h1></div>
+    <div class="inputBox">
+        <div class="inputall">
+            <form action="addUser" method="post" onsubmit="sumbit_sure()">
+            <div class="inputText text1">
+               <label class="text1">&nbsp;&nbsp;&nbsp;&nbsp;用户名：<input type="Text" placeholder="请输入用户名" name="NOMALID" id="nomalid"></label>
+            </div>
+                <div class="inputText text1">
+                    <label class="text1">员工编号：<input type="Text" placeholder="请输入员工编号" name="EMPNO" id="empno"></label>
+                </div>
+            <div class="inputText text1">
+                <label class="text1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密码：<input type="password" placeholder="请输入密码" name="NPASSWORD" id="password"></label>
+            </div>
+            <div class="inputText text1">
+                <label class="text1">重复密码：<input type="password" placeholder="请再次输入密码" id="password2"></label>
+            </div>
+            <div class="inputText yanzheng">
+                <label class="text1">&nbsp;&nbsp;&nbsp;&nbsp;验证码：<input type="Text" placeholder="请输入验证码" ></label>
+                <img src="../img/验证码.png" class="img1" />
+            </div>
+            <div class="inputText text1">
+                <div class="button1">
+                    <button class="button2" type="submit" id="submit">注册</button>
+                </div>
+            </div>
+            </form>
+            <button class="button2 button3" id="return"><a href="login.html">返回</a></button>
+        </div>
+    </div>
+</div>
+</body>
+<script src="../lib/jquery-1.6.4.min.js"></script>
+<script>
+    $(function () {
+
+        $("#submit").click(function () {
+            var flag=5;
+            var nomalid=$("#nomalid").val();
+            var empno = $("#empno").val();
+            var password=$("#password").val();
+            var password2=$("#password2").val();
+            if(nomalid.trim()=='')
+            {
+                alert("请输入账号！");
+                return false;
+            }
+            else if(empno.trim()=='')
+            {
+                alert("请输入员工编号！");
+                return false;
+            }
+            else if(password.trim()=='')
+            {
+                alert("请输入密码！");
+                return false;
+            }
+            else if(password2.trim()=='')
+            {
+                alert("请再次输入密码！");
+                return false;
+            }
+            else if (password2!=password)
+            {
+                alert("两次密码输入不一致！");
+                return  false;
+            }
+            else {
+                $.ajax({
+                    url: "/_war_exploded/selectempno",
+                    data: "empno="+empno,
+                    async: false,
+                    type: "get",
+                    dataType: "text",
+                    success: function (data) {
+                        flag=data;
+                    },
+                    error: function () {
+                        alert("服务器异常");
+                    }
+                });
+                if(flag=="1"){
+                    return true;
+                }
+                else if(flag=="2")
+                    {
+                        alert("抱歉，此用户编号已被注册！");
+                        return false;
+                    }
+                else if(flag===5)
+                {
+                    alert("注册失败！");
+                    return false;
+                }
+                else
+                    {
+                            alert("抱歉，没有此用户编号！");
+                            return false;
+                    }
+            }
+
+
+        });
+    }
+    )
+</script>
+
+<script language="javascript">
+    function sumbit_sure(){
+        var gnl=confirm("确定要提交?");
+        if (gnl==true){
+            alert("注册成功!");
+            return true;
+        }else{
+            return false;
+        }
+    }
+    </script>
+<!--<script src="../js/注册用户js.js">-->
+<!--</script>-->
+</html>
